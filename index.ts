@@ -170,7 +170,7 @@ const remove = (data: Record<string, string[] | undefined>[]) => {
 
 if (process.argv.includes("--remove-json")) {
   const json = process.argv?.[3];
-  const data = require(json);
+  const data = require(path.join(base, json));
   remove(data);
 } else {
   const folders = process.argv.slice(2).filter((d) => d !== "--remove");
@@ -187,7 +187,7 @@ if (process.argv.includes("--remove-json")) {
     });
     if (process.argv.includes("--remove")) {
       remove(data);
-    } else if(data.length)
+    } else if (data.length)
       fs.writeFileSync("unused-styles.json", JSON.stringify(data, null, 2));
     console.log(">Total Unused styles: ", totalUnusedCount);
   };
